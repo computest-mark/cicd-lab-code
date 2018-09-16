@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Edit "{{ question['question'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="question">Question</label>
+    <input name="question" id="question"
+      value="{{ request.form['question'] or question['question'] }}" required>
+    <label for="answer">Answer</label>
+    <textarea name="answer" id="answer">{{ request.form['answer'] or question['answer'] }}</textarea>
+    <input type="submit" value="Save">
+  </form>
+  <hr>
+  <form action="{{ url_for('qna.delete', id=question['id']) }}" method="post">
+    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+  </form>
+{% endblock %}
